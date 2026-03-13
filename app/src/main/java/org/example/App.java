@@ -5,6 +5,9 @@ package org.example;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -27,15 +30,15 @@ public class App {
     public static void main(String[] args) throws IOException {
         System.out.println(new App().getGreeting());
 
-		IRender render = new Render();
-		IContextBuilder builder = render.newBuilder();
-		builder.width(80).height(20);
-		builder.element(new PseudoText("mosa"));
-		ICanvas canvas = render.render(builder.build());
-		String s = canvas.getText();
-		System.out.println(s);
+        IRender render = new Render();
+        IContextBuilder builder = render.newBuilder();
+        builder.width(80).height(20);
+        builder.element(new PseudoText("mosa"));
+        ICanvas canvas = render.render(builder.build());
+        String s = canvas.getText();
+        System.out.println(s);
 
-                // PDF Box
+        // PDF Box
         PDDocument helloPdf = new PDDocument();
         PDPage page = new PDPage(PDRectangle.A4);
         helloPdf.addPage(page);
@@ -50,6 +53,27 @@ public class App {
 
         helloPdf.save(new File("simple.pdf"));
         helloPdf.close();
+
+        // Code für neue Advanced Dependencies:
+
+        // Java Faker
+        Faker faker = new Faker(new Locale("de"));
+        String name = faker.name().fullName();
+        String job = faker.job().title();
+        String stadt = faker.address().cityName();
+
+        System.out.println("Generierter Test-Nutzer: " + name);
+        System.out.println("Beruf: " + job + " in " + stadt);
+
+        // Gson: Doese Datei in ein JSON-Objekt umwandeln
+        Gson gson = new Gson();
+        Map<String, String> userMap = new HashMap<>();
+        userMap.put("name", name);
+        userMap.put("job", job);
+        userMap.put("city", stadt);
+
+        String jsonOutput = gson.toJson(userMap);
+        System.out.println("JSON-Export für API: " + jsonOutput);
 
     }
 }
