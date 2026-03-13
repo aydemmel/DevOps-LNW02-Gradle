@@ -16,6 +16,8 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
+import com.github.javafaker.Faker;
+import com.google.gson.Gson;
 import com.indvd00m.ascii.render.Render;
 import com.indvd00m.ascii.render.api.ICanvas;
 import com.indvd00m.ascii.render.api.IContextBuilder;
@@ -57,7 +59,7 @@ public class App {
         // Code für neue Advanced Dependencies:
 
         // Java Faker
-        Faker faker = new Faker(new Locale("de"));
+        Faker faker = new Faker(Locale.forLanguageTag("de"));
         String name = faker.name().fullName();
         String job = faker.job().title();
         String stadt = faker.address().cityName();
